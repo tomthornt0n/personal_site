@@ -5,6 +5,10 @@
 	background: #fdf6e3
 }
 
+a.undecorated {
+	text-decoration: none;
+}
+
 h1 {
 	color: #268bd2;
 }
@@ -24,6 +28,7 @@ h1 {
 img {
 	width: 90%;
 	height: auto;
+	border-radius: 5px;
 }
 
 .container {
