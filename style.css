@@ -13,17 +13,8 @@ h1 {
 	color: #268bd2;
 }
 
-pre {
-	text-align: left; 
-	background: #073642;
-	color: #fdf6e3;
-	border-radius: 5px;
-	padding: 10px;
-	width: 90%;
-	margin: auto;
-}
-
-code {
+code, pre {
+	text-align: left;
 	font-family: monospace;
 	background: #073642;
 	color: #fdf6e3;
@@ -52,4 +43,14 @@ img {
 .container {
 	margin: auto;
 	width: 720px;
+}
+
+.code_block {
+	text-align: left; 
+	background: #073642;
+	color: #fdf6e3;
+	border-radius: 5px;
+	padding: 10px;
+	width: 90%;
+	margin: auto;
 }
