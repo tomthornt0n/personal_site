@@ -1,8 +1,8 @@
 * {
-	text-align: center;
 	color: #073642;
 	font-family: helvetica;
-	background: #fdf6e3
+	background: #fdf6e3;
+	text-align: center; 
 }
 
 a.undecorated {
@@ -11,6 +11,30 @@ a.undecorated {
 
 h1 {
 	color: #268bd2;
+}
+
+pre {
+	text-align: left; 
+	background: #073642;
+	color: #fdf6e3;
+	border-radius: 5px;
+	padding: 10px;
+	width: 90%;
+	margin: auto;
+}
+
+code {
+	font-family: monospace;
+	background: #073642;
+	color: #fdf6e3;
+	border-radius: 5px;
+	padding: 3px;
+}
+
+img {
+	width: 90%;
+	height: auto;
+	border-radius: 5px;
 }
 
 .solid {
@@ -23,12 +47,6 @@ h1 {
 	width: 95%;
 	border: 0px;
 	border-top: 2px dotted #657b83;
-}
-
-img {
-	width: 90%;
-	height: auto;
-	border-radius: 5px;
 }
 
 .container {

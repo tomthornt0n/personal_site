@@ -11,19 +11,16 @@
 		<a class="undecorated" href="index.html"><h1>Tom Thornton</h1></a>
 					
 		<div class="container">
-			<h2>near:</h1>
+			<h2>Near:</h1>
 			<hr class="solid">
 			<img src="img/near.gif" alt="a gif showing Near in use">
 			<hr class="dotted">
-
+			<h3>About</h3>
 			<p>
 				Near is a file explorer system aiming to explore fundamental changes to how we browse, find and group files. We are experimenting with unique ideas to guage their usefulness and practicality in the real world when trying to organise and find the files you want.
 			</p>
 			<p>
-				Clasically file explorers have been a one to one presentation of the file tree of the system. We aim to break that by providing tools to allow users to 'transform' how the files are presented to them, we call these virtual transformation. Virtual transformations are modifications to how the files are shown to the user without actually modifying the hierarchy on disk. For example you can 'rebase' one file/folder to another without affecting any of the paths on the system. This lets you reorganize your data into a form that is better suited for the job at hand without affecting other processes that may rely on the existing hierarchy established on the system.
-			</p>
-			<p>
-				Another feature Near is exploring are what we call slices. A slice is very similar to a search but rather than showing a flat list of results it preserves the hierarchy shown to the user. You are still able to move in and out of folders but only the relevant contents are shown to the user.
+				Clasically file explorers have been a one to one presentation of the file tree of the system. We aim to break that by providing tools to allow users to 'transform' how the files are presented to them, we call these virtual transformation. Virtual transformations are modifications to how the files are shown to the user without actually modifying the hierarchy on disk. For example you can 'rebase' one file/folder to another without affecting any of the paths on the system. This lets you reorganize your data into a form that is better suited for the job at hand without affecting other processes that may rely on the existing hierarchy established on the system, or allow you to easily switch between different representations of the same files which may be better suited to different tasks.
 			</p>
 			<p>
 				Near is developed by:
@@ -33,7 +30,30 @@
 					<li>David Conway</li>
 				</ul>
 			</p>
-			<a href="https://github.com/tomthornt0n/near/blob/main/about.md">Read more about Near here.</a>
+			<hr class="dotted">
+			<h3>Features</h3>
+			<h4>Rebase</h4>
+			<p>
+				Near allows arbitrary restrucuring the the file hierarchy by giving the user tools to reparent any node into a different directory or group.
+			</p>
+				<img src="img/near_rebase.gif" alt="a GIF showing files being dragged to be reparented between between to directories">
+			<p>
+				A practical example of this is flattening deep hierarchies, as is illustrated below.
+			</p>
+			<img src="img/near_flatten.gif" alt="a GIF showing files from three nested directories being flattened into the root">
+
+			<h4>Tag</h4>
+			<p>
+				Near allows users to assign additional meta-data to their files in the form of tags.  Each file is associatied with a list of tags, which may be useful when organising or searching for files, for example tagging all <code>.c</code> files with an <code>implementation</code> tag and all <code>.h</code> files with <code>header</code>.
+			</p>
+
+			<h4>Slice</h4>
+			<p>
+				Another feature we are exploring with Near is 'slicing' the file system. A slice is like a search, but instead of retreiving a flat list of matching files, it filters the displayed files to only the files which match, while still maintaining structure. Near allows slicing based on richer information than just filename, and can also filter by modified time and tags, with plans to include more in the future.
+			</p>
+			<img src="img/near_slice.gif" alt="a GIF showing the near source code, sliced by tag">
+
+			<hr class="solid">
 		</div>
 
 		<footer class="container">
