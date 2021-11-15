@@ -18,20 +18,20 @@ code, pre {
 	font-family: monospace;
 	background: #073642;
 	color: #fdf6e3;
-	border-radius: 5px;
+	border-radius: 8px;
 	padding: 3px;
 }
 
 img {
 	width: 90%;
 	height: auto;
-	border-radius: 5px;
+	border-radius: 8px;
 }
 
 .solid {
 	border: 0px;
-	border-top: 2px solid #586e75;
-	border-radius: 5px;
+	border-top: 3px solid #586e75;
+	border-radius: 2px;
 }
 
 .dotted {
@@ -46,6 +46,7 @@ img {
 }
 
 .code_block {
+	font-family: monospace;
 	text-align: left; 
 	background: #073642;
 	color: #fdf6e3;
