@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <script src="script.js"></script>
+        <style>
+            .container {
+                display: flex;
+            }
+        </style>
+    </head>
+    <body onload="onLoad()">
+        <div class="container">
+            <textarea id="inputText" class="codeInput" oninput="update()"></textarea>
+            <canvas id="canvas" class="canvas" width="960" height="540" />
+        </div>
+    </body>
+</html>
+
