@@ -2,18 +2,42 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <script src="script.js"></script>
         <style>
-            .container {
-                display: flex;
+            body {
+                background-color: rgb(30, 30, 30);
+            }
+            
+            .row {
+              display: flex;
+            }
+            
+            .column {
+              flex: 50%;
+            }
+
+            .editor {
+                max-height: 100% !important;
+                height: 760px;
             }
         </style>
     </head>
     <body onload="onLoad()">
-        <div class="container">
-            <textarea id="inputText" class="codeInput" oninput="update()"></textarea>
-            <canvas id="canvas" class="canvas" width="960" height="540" />
+        <div class="row">
+            <div class="column">
+                <div id="editor" class="editor"></div>
+            </div>
+            <div class="column">
+                <canvas id="canvas" width="960" height="540"></canvas>
+            </div>
         </div>
+
+        <script>
+            var require = { paths: { vs: 'monaco/min/vs' } };
+        </script>
+        <script src="monaco/min/vs/loader.js"></script>
+        <script src="monaco/min/vs/editor/editor.main.nls.js"></script>
+        <script src="monaco/min/vs/editor/editor.main.js"></script>
+        <script src="script.js"></script>
     </body>
 </html>
 
