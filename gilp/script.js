@@ -291,25 +291,51 @@ function onLoad () {
     window.editor = monaco.editor.create(document.getElementById("editor"), {
         theme: 'vs-dark',
         value: `
+
 (begin
-    (define x 100)
+    (define paddle-x 100)
+    (define paddle-y (- HEIGHT 64))
+    (define paddle-w 256)
+    (define paddle-h 32)
+    
+    (set! r 32)
+
+    (define x-vel 2)
+    (define y-vel 2)
+    (define ball-x (/ WIDTH 2))
+    (define ball-y 256)
 
     (set! ON-KEY-PRESS (lambda k (begin
         (if (== k KEY-LEFT)
-            (set! x (- x 32))
+            (set! paddle-x (- paddle-x 32))
         (if (== k KEY-RIGHT)
-            (set! x (+ x 32))
+            (set! paddle-x (+ paddle-x 32))
         ))
     )))
 
     (set! update (lambda t (begin
         (set! anim (* (sin t) (sin t)))
         (set! BRUSH (list 255 0 (* anim 255)))
-        (rectangle x (- HEIGHT 64) 256 32)
+
+        (if (or (and (> ball-y paddle-y) (and (>= ball-x paddle-x) (<= ball-x (+ paddle-x paddle-w)))) (<= ball-y r)) (begin
+            (set! y-vel (* y-vel -1))
+        ))
+
+        (if (or (<= ball-x r) (>= ball-x (- WIDTH r))) (begin
+            (set! x-vel (* x-vel -1))
+        ))
+
+        (set! ball-x (+ ball-x x-vel))
+        (set! ball-y (+ ball-y y-vel))
+
+        (circle ball-x ball-y r)
+
+        (rectangle paddle-x paddle-y paddle-w paddle-h)
     )))
 
     (update TIME)
 )
+
 `,
         // TODO(tbt): custom highlighting
         language: 'scheme'
