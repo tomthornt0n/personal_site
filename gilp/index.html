@@ -2,11 +2,33 @@
 <html>
     <head>
         <meta charset="utf-8">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
         <style>
             body {
                 background-color: rgb(30, 30, 30);
+                color: rgb(220, 200, 200);
+                font-family: "Share Tech Mono", monospace;
             }
             
+            code, h3 {
+                background-color: rgb(40, 43, 46);
+                color: rgb(220, 200, 200);
+                font-family: "Share Tech Mono", monospace;
+                padding: 4px;
+                border-radius: 4px;
+                width: fit-content;
+            }
+
+            hr.l2 {
+                border: 1px solid rgb(220, 200, 200);
+            }
+
+            hr.l3 {
+                border: 1px dashed rgb(40, 43, 46);
+            }
+
             .row {
               display: flex;
             }
@@ -19,6 +41,47 @@
                 max-height: 100% !important;
                 height: 760px;
             }
+
+            .icon {
+                width: 16px;
+                height: 16px;
+            }
+
+            button {
+                border: none;
+                color: rgb(220, 200, 200);
+                background-color: rgb(40, 43, 46);
+                display: inline-block;
+                border-radius: 3px;
+                border-bottom-style: solid;
+                border-bottom-width: 3px;
+                transition: text-shadow 0.3s ease;
+                margin: 4px;
+                font-family: "Share Tech Mono", monospace;
+            }
+
+            button:active {
+                position: relative;
+                top: 1px;
+                border-bottom-width: 2px;
+                margin: 2px;
+            }
+
+            button:hover {
+                text-shadow: 2px 2px 0px rgba(0,0,0,.3)
+            }
+
+            input {
+                display: inline-block;
+                width: 250px;
+                box-sizing: border-box;
+                color: rgb(220, 200, 200);
+                background-color: rgb(40, 43, 46);
+                border: none;
+                border-radius: 2px;
+                transition:background-color 0.5s ease;
+                font-family: "Share Tech Mono", monospace;
+            }
         </style>
     </head>
     <body onload="onLoad()">
@@ -27,10 +90,234 @@
                 <div id="editor" class="editor"></div>
             </div>
             <div class="column">
-                <canvas id="canvas" width="960" height="540"></canvas>
+                <div class="row">
+                    <button id="playPause" onclick="togglePlayPause()"><img src="pause.png" class="icon"></button>
+                    <button id="restart" onclick="restart()"><img src="restart.png" class="icon"></button>
+                </div>
+                <div class="row">
+                    <canvas id="canvas" width="960" height="540"></canvas>
+                </div>
+                <div class="row">
+                    <input id="shellInput" size="32" value="; enter an expression"></input>
+                    <button onclick="runShellInput()">run</button>
+                </div>
             </div>
         </div>
-
+            <h1>G I L P</h1>
+            <p>"graphical interactive list processor"</p>
+            <p>
+                GILP is a lisp live coding envirnment with an emphasis on visuals and interactivity. Try changing the code in the editor (or enter an expression in the command line) and watch the display to the right change in real time.
+            </p>
+            <h1>reference:</h1>
+            <h2>keywords</h2>
+            <hr class="l2">
+            <h3>(begin [expr] ...)</h3>
+            <p>Evaluates each <code>expr</code> in sequence. Returns the value of the last <code>expr</code>.</p>
+            <hr class="l3">
+            <h3>(define &ltvariable&gt &ltvalue&gt)</h3>
+            <p>If <code>variable</code> is currently undefined, assign <code>value</code> to it.</p>
+            <hr class="l3">
+            <h3>(set! &ltvariable&gt &ltvalue&gt)</h3>
+            <p>If <code>value</code> to <code>variable</code>.</p>
+            <hr class="l3">
+            <h3>(lambda (&ltparam&gt ...) body)</h3>
+            <p>Produces a procedure.</p>
+            <hr class="l3">
+            <h3>(if &lttest-expr&gt &ltthen-expr&gt &ltelse-expr&gt)</h3>
+            <p>If <code>test-expr</code> evaluates to <code>#t</code> then evaluates and return <code>then-expr</code>. Otherwise, evaluates and return <code>else-expr</code>.</p>
+            <hr class="l3">
+            <h3>(quote &ltexpr&gt)</h3>
+            <p>Evalulates and returns <code>expr</code>.</p>
+            <h2>functions:</h2>
+            <hr class="l2">
+            <h3>(rectangle &ltx&gt &lty&gt &ltw&gt &lth&gt)</h3>
+            <p>Fills a rectangle with the current brush colour of width <code>w</code> and height <code>h</code>. The top left corner is at (<code>x</code>, <code>y</code>).</p>
+            <hr class="l3">
+            <h3>(circle &ltx&gt &lty&gt &ltr&gt)</h3>
+            <p>Fills a circle with the current brush colour of radius <code>r</code>. The centre is at (<code>x</code>, <code>y</code>).</p>
+            <hr class="l3">
+            <h3>(+ [num] ...)</h3>
+            <p>Returns the sum of all <code>num</code>s. Returns 0 if there are none.</p>
+            <hr class="l3">
+            <h3>(- &ltnum&gt ...)</h3>
+            <p>If there is only one <code>num</code>, return its negation. Otherwise, return the first <code>num</code> minus the sum of the remaining <code>num</code>s.</p>
+            <hr class="l3">
+            <h3>(* [num] ...)</h3>
+            <p>Returns the product of all <code>num</code>s. Returns 1 if there are none.</p>
+            <hr class="l3">
+            <h3>(/ &ltdividend&gt [divisor] ...)</h3>
+            <p>If there are no <code>divisor</code>s, return 1 divided by <code>dividend</code>. Otherwise, return <code>dividend</code> divided by the product of the <code>divisor</code>s.</p>
+            <hr class="l3">
+            <h3>(> &lta&gt &ltb&gt)</h3>
+            <p>Returns <code>#t</code> if <code>a</code> is greater than <code>b</code>. Returns <code>#f</code> otherwise.</p>
+            <hr class="l3">
+            <h3>(< &lta&gt &ltb&gt)</h3>
+            <p>Returns <code>#t</code> if <code>a</code> is less than <code>b</code>. Returns <code>#f</code> otherwise.</p>
+            <hr class="l3">
+            <h3>(>= &lta&gt &ltb&gt)</h3>
+            <p>Returns <code>#t</code> if <code>a</code> is greater than or equal to <code>b</code>. Returns <code>#f</code> otherwise.</p>
+            <hr class="l3">
+            <h3>(<= &lta&gt &ltb&gt)</h3>
+            <p>Returns <code>#t</code> if <code>a</code> is less than or equal to <code>b</code>. Returns <code>#f</code> otherwise.</p>
+            <hr class="l3">
+            <h3>(= &lta&gt &ltb&gt)</h3>
+            <p>Returns <code>#t</code> if <code>a</code> is equal to <code>b</code>. Returns <code>#f</code> otherwise.</p>
+            <hr class="l3">
+            <h3>(and &lta&gt &ltb&gt)</h3>
+            <p>Logical and of <code>a</code> and <code>b</code>.</p>
+            <hr class="l3">
+            <h3>(or &lta&gt &ltb&gt)</h3>
+            <p>Logical or of <code>a</code> and <code>b</code>.</p>
+            <hr class="l3">
+            <h3>(not &lta&gt)</h3>
+            <p>Logical not of <code>a</code>.</p>
+            <hr class="l3">
+            <h3>(abs &lta&gt)</h3>
+            <p>Absolute value of <code>a</code>.</p>
+            <hr class="l3">
+            <h3>(expt &lta&gt &ltb&gt)</h3>
+            <p>Raises <code>a</code> to the power <code>b</code>.</p>
+            <hr class="l3">
+            <h3>(remainder &lta&gt &ltb&gt)</h3>
+            <p>Returns the remainder when <code>a</code> is divided <code>b</code>.</p>
+            <hr class="l3">
+            <h3>(modulo &lta&gt &ltb&gt)</h3>
+            <p>Returns <code>a</code> modulo <code>b</code>.</p>
+            <hr class="l3">
+            <h3>(length &lta&gt)</h3>
+            <p>Returns the length of the list <code>a</code>.</p>
+            <hr class="l3">
+            <h3>(cons &ltfirst&gt &ltrest&gt)</h3>
+            <p>Returns a new list concatenating <code>first</code> and <code>rest</code>.</p>
+            <hr class="l3">
+            <h3>(car &lta&gt)</h3>
+            <p>Returns the first element of the list <code>a</code>.</p>
+            <hr class="l3">
+            <h3>(cdr &lta&gt)</h3>
+            <p>Returns the rest of the list <code>a</code>.</p>
+            <hr class="l3">
+            <h3>(append &lta&gt &ltb&gt)</h3>
+            <p>Returns a new list concatenating <code>a</code> and <code>b</code>.</p>
+            <hr class="l3">
+            <h3>(list &ltitem&gt ...)</h3>
+            <p>Produces a list.</p>
+            <hr class="l3">
+            <h3>(null? &lta&gt)</h3>
+            <p>Returns <code>#t</code> if the list <code>a</code> has length 0. Returns <code>#f</code> otherwise.</p>
+            <hr class="l3">
+            <h3>(lambda? &lta&gt)</h3>
+            <p>Returns <code>#t</code> if <code>a</code> is a function. Returns <code>#f</code> otherwise.</p>
+            <hr class="l3">
+            <h3>(sin &lta&gt)</h3>
+            <p>Returns sin(<code>a</code>).</p>
+            <hr class="l3">
+            <h3>(cos &lta&gt)</h3>
+            <p>Returns cos(<code>a</code>).</p>
+            <hr class="l3">
+            <h3>(tan &lta&gt)</h3>
+            <p>Returns tan(<code>a</code>).</p>
+            <hr class="l3">
+            <h3>(on_key_press &ltk&gt)</h3>
+            <p>Called on a key press event. Overwrite to handle key presses. <code>k</code> is one of the built in keycode values.</p>
+            <h2>values</h2>
+            <hr class="l2">
+            <h3>brush</h3>
+            <p>The current fill colour. Overwrite to affect drawing.</p>
+            <hr class="l3">
+            <h3>#t</h3>
+            <p>True.</p>
+            <hr class="l3">
+            <h3>#f</h3>
+            <p>False.</p>
+            <hr class="l3">
+            <h3>#width</h3>
+            <p>The width of the canvas in pixels.</p>
+            <hr class="l3">
+            <h3>#height</h3>
+            <p>The height of the canvas in pixels.</p>
+            <hr class="l3">
+            <h3>#time</h3>
+            <p>The current frame number.</p>
+            <hr class="l3">
+            <h3>#key_1</h3>
+            <hr class="l3">
+            <h3>#key_2</h3>
+            <hr class="l3">
+            <h3>#key_3</h3>
+            <hr class="l3">
+            <h3>#key_4</h3>
+            <hr class="l3">
+            <h3>#key_5</h3>
+            <hr class="l3">
+            <h3>#key_6</h3>
+            <hr class="l3">
+            <h3>#key_7</h3>
+            <hr class="l3">
+            <h3>#key_8</h3>
+            <hr class="l3">
+            <h3>#key_9</h3>
+            <hr class="l3">
+            <h3>#key_0</h3>
+            <hr class="l3">
+            <h3>#key_a</h3>
+            <hr class="l3">
+            <h3>#key_b</h3>
+            <hr class="l3">
+            <h3>#key_c</h3>
+            <hr class="l3">
+            <h3>#key_d</h3>
+            <hr class="l3">
+            <h3>#key_e</h3>
+            <hr class="l3">
+            <h3>#key_f</h3>
+            <hr class="l3">
+            <h3>#key_g</h3>
+            <hr class="l3">
+            <h3>#key_h</h3>
+            <hr class="l3">
+            <h3>#key_i</h3>
+            <hr class="l3">
+            <h3>#key_j</h3>
+            <hr class="l3">
+            <h3>#key_k</h3>
+            <hr class="l3">
+            <h3>#key_l</h3>
+            <hr class="l3">
+            <h3>#key_m</h3>
+            <hr class="l3">
+            <h3>#key_n</h3>
+            <hr class="l3">
+            <h3>#key_o</h3>
+            <hr class="l3">
+            <h3>#key_p</h3>
+            <hr class="l3">
+            <h3>#key_q</h3>
+            <hr class="l3">
+            <h3>#key_r</h3>
+            <hr class="l3">
+            <h3>#key_s</h3>
+            <hr class="l3">
+            <h3>#key_t</h3>
+            <hr class="l3">
+            <h3>#key_u</h3>
+            <hr class="l3">
+            <h3>#key_v</h3>
+            <hr class="l3">
+            <h3>#key_w</h3>
+            <hr class="l3">
+            <h3>#key_x</h3>
+            <hr class="l3">
+            <h3>#key_y</h3>
+            <hr class="l3">
+            <h3>#key_z</h3>
+            <hr class="l3">
+            <h3>#key_up</h3>
+            <hr class="l3">
+            <h3>#key_down</h3>
+            <hr class="l3">
+            <h3>#key_left</h3>
+            <hr class="l3">
+            <h3>#key_right</h3>
         <script>
             var require = { paths: { vs: 'monaco/min/vs' } };
         </script>
