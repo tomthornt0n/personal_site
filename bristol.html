@@ -5,68 +5,27 @@
 		<meta name="Keywords" content="C, Handmade, Personal Site, Projects, Programming, C Programming">
 		<meta name="Description" content="Personal site with some of my projects">
 		<link rel="stylesheet" href="style.css">
-		<title>Tom Thornton</title>
+		<title>Bristol | Tom Thornton</title>
 	</head>
 	<body>
-		<a id="top" class="undecorated" href="index.html"><h1>Tom Thornton</h1></a>
+		<a id="top" class="undecorated" href="index.html#bristol"><h1>Tom Thornton</h1></a>
 					
 		<div class="container">
-			<h2>Projects:</h1>
+			<h2>Bristol:</h2>
 			<hr class="solid">
-
-			<a class="undecorated" href="near.html">
-				<h3 id="near">Near</h3>
-				<span>An experimental file manager</span>
-				<img src="img/near.gif" alt="a gif showing Near in use">
-			</a>
-			<hr class="dotted">
-
-			<a class="undecorated" href="lucerna.html">
-				<h3 id="lucerna">Lucerna</h3>
-				<span>A game about memory</span>
-				<img src="img/lucerna.gif" alt="a gif showing the first room of Lucerna">
-			</a>
-			<hr class="dotted">
-
-			<a class="undecorated" href="bristol.html">
-				<h3 id="Bristol">Bristol</h3>
-				<span>A quick on-the-fly drawing program that copies straight to your clipboard</span>
-				<img src="img/bristol.gif" alt="a gif showing a sketch being copied into Word from Bristol">
-			</a>
-			<hr class="dotted">
-
-			<a class="undecorated" href="https://www.github.com/tomthornt0n/self_imposed_jam_1">
-				<h3 id="jam_game_1">"self-imposed jam game 1"</h3>
-				<span>An arcade style game made from scratch in 48 non-consecutive hours</span>
-				<img src="img/jam_game.gif" alt="a gif showing an arcade style bullet-hell fighting game">
-			</a>
-			<hr class="dotted">
-
-			<a class="undecorated" href="https://www.github.com/tomthornt0n/lcddl">
-				<h3 id="lcddl">LCDDL</h3>
-				<span>A data description language for metaprogramming and compile-time reflection</span>
-				<div class="code_block">
-						<pre>
-foo : i32 = 8;
-_bar2 : f64 = 912.872;
-
-my_float := 1 / (4 + 19.8);
-my_unsigned_int : u64;
-
-example_1 : struct
-{
-    example_2 : string = "hello, world!";
-
-    @tag_1 @tag_2="this is an annotation value"
-    example_3 : union
-    {
-        example_4 : [8]i8;
-        example_5 : u32*;
-    };
-};
-						</pre>
-				</div>
-			</a>
+			<h3>About</h3>
+			<img src="img/bristol.gif" alt="A sketch being copied from Bristol to Word">
+			<p>
+				Oftentimes, when inputting text on a computer, it is often desirable to insert free hand diagrams or illustrations.
+				A more complete solution would integrate more tightly with the text, however, in order to maximise the number of cases in which it is useful, <i>Bristol</i> is designed with current operating system paradigms in mind.
+				<i>Bristol</i> is a background process with a system tray icon.
+				At the press of a hotkey, it summons a blank window on which the user can draw.
+				When the window is closed, the image is immediately copied to the clipboard, ready to be inserted wherever it is needed.
+				This is useful when explaining something via online messages, or to insert ad-hoc illustrations into informal documents.
+			</p>
+			<p>
+				The source code is available <a href="https://www.github.com/tomthornt0n/bristol">here</a>.
+			</p>
 			<hr class="solid">
 		</div>
 

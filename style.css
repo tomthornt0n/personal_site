@@ -22,10 +22,39 @@ code, pre {
 	padding: 3px;
 }
 
+p, ul, li {
+	text-align: left;
+}
+
 img {
 	width: 90%;
 	height: auto;
 	border-radius: 8px;
+	margin: auto;
+}
+
+span {
+	display: block;
+	padding-bottom: 16px;
+}
+
+.math {
+	font-family: "Cambria", serif;
+	font-style: italic;
+}
+
+.image_with_caption_container {
+	width: 70%;
+	height: auto;
+	text-align: center;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	margin: auto;
+}
+
+.caption {
+	text-align: center;
+	color: #86e75;
 }
 
 .solid {

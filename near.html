@@ -8,60 +8,102 @@
 		<title>Near | Tom Thornton</title>
 	</head>
 	<body>
-		<a class="undecorated" href="index.html"><h1>Tom Thornton</h1></a>
+		<a id="top" class="undecorated" href="index.html#near"><h1>Tom Thornton</h1></a>
 					
 		<div class="container">
-			<h2>Near:</h1>
+			<h2>Near:</h2>
 			<hr class="solid">
 			<h3>About</h3>
 			<img src="img/near.gif" alt="a gif showing Near in use">
 			<p>
-				<i>Near</i> is a file explorer system aiming to explore fundamental changes to how we browse, find and group files. We are experimenting with unique ideas to guage their usefulness and practicality in the real world when trying to organise and find the files you want.
+				<i>Near</i> is an experimental project which questions how tightly the view presented by a file explorer should be coupled with the structure of the underlying file system.
 			</p>
 			<p>
-				Clasically file explorers have been a one to one presentation of the file tree of the system. We aim to break that by providing tools to allow users to transform how the files are presented to them: we call these <i>virtual transformations</i>. Virtual transformations are modifications to how the files are presented without actually affecting the structure on disk. For example you can 'rebase' one node on to another without affecting any of the paths on the system. This lets you reorganize your data into a form that is better suited for the job at hand without affecting other processes that may rely on the existing hierarchy established on the system, or allow you to easily switch between different representations of the same files which may be better suited to different tasks.
+				Classically file explorers have been a one-to-one presentation of the file tree of the system.
+				We have been exploring transformations which can be applied to the tree in order to be more useful when searching, organising and working with files, without affect the file structure on disk.
+				We feel this could be beneficial for three reasons:
 			</p>
-			<p>
-				<i>Near</i> is developed by:
-				<ul>
-					<li>Lucas Perlind</li>
-					<li>Tom Thornton</li>
-					<li>David Conway</li>
-				</ul>
-			</p>
+			<ul>
+				<li><strong>compatibility:</strong> Many tools store fixed paths, which may become tedious to update when rearranging files. Decoupling presentation and storages allows you to make changes to the organisation of your files without affecting programs which depend on them.</li>
+				<li><strong>dynamicity:</strong> By allowing a user to rapidly switch between views of the same files, a more appropriate organisational structure can be selected for a given task.</li>
+				<li><strong>complexity:</strong> Modern file systems contain lots of complexity, which is passed on to applications interacting with the file system. If the file manager does more, the file system has to do less. This in turn would allow other applications to be developed more easily as the difficulties of working with a complex file system are no longer existent.</li>
+			</ul>
 			<hr class="dotted">
-			<h3>Features</h3>
-			<h4>Rebase</h4>
+			<h3>The Past</h3>
 			<p>
-				<i>Near</i> allows arbitrary restrucuring the the file hierarchy by giving the user tools to reparent any node into a different directory or group.
+				Our initial experiments were based around basic transformations which could be composed to form a virtual view of the file tree.
 			</p>
-				<img src="img/near_rebase.gif" alt="a GIF showing files being dragged to be reparented between between to directories">
 			<p>
-				A practical example of this is flattening deep hierarchies, as is illustrated below.
+				The first prototype proposed the primitives <i>flatten</i>, <i>group</i> and <i>slice</i>.
+				<i>Flatten</i> virtually moves a file into its parent directory, allowing the user to compress deeply nested file hierarchies.
+				Conversely, <i>group</i> allows files to be combined into effectively a virtual directory.
+				<i>Slice</i> constrains the set of viewed files to the subset matching the search criteria.
 			</p>
-			<img src="img/near_flatten.gif" alt="a GIF showing files from three nested directories being flattened into the root">
-
-			<h4>Tag</h4>
+			<div class="image_with_caption_container">
+				<img src="img/near_slice.gif">
+				<br>
+				<span clas="caption">The prototype's own source files 'sliced' based on tag metadata stored by the file manager.</span>
+			</div>
 			<p>
-				Near allows users to assign additional meta-data to their files in the form of tags.  Each file is associatied with a list of tags, which may be useful when organising or searching for files, for example tagging all <code>.c</code> files with an <code>implementation</code> tag and all <code>.h</code> files with <code>header</code>.
+				This design had some significant problems.
+				<i>Flatten</i> was unnecessarily constrained to moving files into only their parent directory.
+				<i>Group</i> became problematic as a group had to effectively be 'mounted' into the filesystem to be visible, emulating many of the complexities found in filesystems which we were trying to avoid.
 			</p>
-
-			<h4>Slice</h4>
 			<p>
-				Another feature we are exploring with <i>Near</i> is 'slicing' the file system. A slice is like a search, but instead of retreiving a flat list of matching files, it filters the displayed files to only the files which match, while still maintaining structure. <i>Near</i> allows slicing based on richer information than just filename, and can also filter by modified time and tags, with plans to include more in the future.
+				The next prototype discarded <i>group</i> and replaced the <i>flatten</i> operation with the more powerful <i>rebase</i>, allowing any file to be virtually moved into any parent directory.
 			</p>
-			<img src="img/near_slice.gif" alt="a GIF showing the near source code, sliced by tag">
-
+			<div class="image_with_caption_container">
+				<img src="img/near_rebase.gif">
+				<br>
+				<span clas="caption">Holding a modifier key and dragging virtually rebases instead of performing a hard move</span>
+			</div>
+			<p>
+				The mapping <span class="math">filename → virtual filename</span> encoded by rebase operations provided a simpler, clearer conceptual model and was flexible enough to describe nearly any transformation to the tree structure.
+				However, manually moving files one by one (or even with multiple selection) was not a useful interface.
+				In addition, many degenerate cases (e.g., rebase into a folder, delete folder) were possible, resulting in many bugs.
+			</p>
+			<p>
+				The most recent prototype simplified things further, discarding all together the idea of applying a 'virtual transformation' to a file.
+				Instead, it is based around the idea of viewing a union of directories, rather than a single directory at a time, as in a traditional file manager.
+				This combined with filtering ('slicing'), provided the first glimpse of something that may be usable.
+				Although objectively less powerful, it provides better ergonomics and reduces the possibility of confusing, useless, or all-together broken cases.
+				Many familiar commands from traditional file managers have close analogies within this model: 'back' and 'forward' work identically, 'up' can be applied elementwise to the list of directories.
+			</p>
+			<div class="image_with_caption_container">
+				<img src="img/near.gif">
+				<br>
+				<span clas="caption">Clicking while holding a modifier key adds the directory to the list of viewed directories, instead of entering into it.</span>
+				<span clas="caption">Colour coding is used to make files from different directories easily visually distinguishable.</span>
+			</div>
+			<hr class="dotted">
+			<h3>The Future</h3>
+			<p>
+				Our research so far seems to have left us with more questions than answers.
+				Here are some of the things we will be thinking about next.
+			</p>
+			<p>
+				All of the prototypes so far have been based around relatively thin layers on top of current file organisation techniques.
+				This has value: although we believe there are benefits to decoupling storage from presentation, it is dangerous to discard the storage mechanism as a mere "implementation detail" as it is sure to have influence on nearly all operations working with files.
+				If complete control over the filesystem was viable, what other presentations would be useful or viable?
+			</p>
+			<p>
+				How would a filesystem be designed with a file manager of this kind in mind? Which features belong in the lowest level, and which should be implemented higher up the stack?
+			</p>
+			<p>
+				Examples such as <i>voidtools</i>' <a href="https://www.voidtools.com/">Everything</a> show how powerful searching a large set of files with instant feedback can be.
+				What is the best format for providing more complex queries?
+				How can queries compose?
+				How do you design an interface for sufficiently advanced queries that doesn't devolve to a scripting language?
+			</p>
 			<hr class="solid">
 		</div>
 
 		<footer class="container">
-			<p>
-				©2021 Tom Thornton •	
+				<a href="#top">top</a> |
+				©2021 Tom Thornton | 
 				<a href="https://github.com/tomthornt0n/">	
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg>
 				</a>
-			</p>
 		</footer>
 	</body>
 </html>

@@ -5,68 +5,29 @@
 		<meta name="Keywords" content="C, Handmade, Personal Site, Projects, Programming, C Programming">
 		<meta name="Description" content="Personal site with some of my projects">
 		<link rel="stylesheet" href="style.css">
-		<title>Tom Thornton</title>
+		<title>Lucerna | Tom Thornton</title>
 	</head>
 	<body>
-		<a id="top" class="undecorated" href="index.html"><h1>Tom Thornton</h1></a>
+		<a id="top" class="undecorated" href="index.html#lucerna"><h1>Tom Thornton</h1></a>
 					
 		<div class="container">
-			<h2>Projects:</h1>
+			<h2>Lucerna:</h2>
 			<hr class="solid">
-
-			<a class="undecorated" href="near.html">
-				<h3 id="near">Near</h3>
-				<span>An experimental file manager</span>
-				<img src="img/near.gif" alt="a gif showing Near in use">
-			</a>
-			<hr class="dotted">
-
-			<a class="undecorated" href="lucerna.html">
-				<h3 id="lucerna">Lucerna</h3>
-				<span>A game about memory</span>
-				<img src="img/lucerna.gif" alt="a gif showing the first room of Lucerna">
-			</a>
-			<hr class="dotted">
-
-			<a class="undecorated" href="bristol.html">
-				<h3 id="Bristol">Bristol</h3>
-				<span>A quick on-the-fly drawing program that copies straight to your clipboard</span>
-				<img src="img/bristol.gif" alt="a gif showing a sketch being copied into Word from Bristol">
-			</a>
-			<hr class="dotted">
-
-			<a class="undecorated" href="https://www.github.com/tomthornt0n/self_imposed_jam_1">
-				<h3 id="jam_game_1">"self-imposed jam game 1"</h3>
-				<span>An arcade style game made from scratch in 48 non-consecutive hours</span>
-				<img src="img/jam_game.gif" alt="a gif showing an arcade style bullet-hell fighting game">
-			</a>
-			<hr class="dotted">
-
-			<a class="undecorated" href="https://www.github.com/tomthornt0n/lcddl">
-				<h3 id="lcddl">LCDDL</h3>
-				<span>A data description language for metaprogramming and compile-time reflection</span>
-				<div class="code_block">
-						<pre>
-foo : i32 = 8;
-_bar2 : f64 = 912.872;
-
-my_float := 1 / (4 + 19.8);
-my_unsigned_int : u64;
-
-example_1 : struct
-{
-    example_2 : string = "hello, world!";
-
-    @tag_1 @tag_2="this is an annotation value"
-    example_3 : union
-    {
-        example_4 : [8]i8;
-        example_5 : u32*;
-    };
-};
-						</pre>
-				</div>
-			</a>
+			<h3>About</h3>
+			<img src="img/lucerna.gif" alt="The opening scene of the game. The main character wakes up in their office, but cannot remember how they got there.">
+			<p>
+				<i>Lucerna</i> was my first major project in C.
+				Through it a learned a lot about systems level and graphics programming, such as working with OS and graphics APIs and structuring my codebase to separate platform dependent components.
+			</p>
+			<p>
+				It featured a windows platform layer; 2D OpenGL renderer with post-processing effects such as bloom, grain/noise, gaussian blur; custom hash table implementation; custom serialisation format; custom arena based memory allocation; an immediate mode user interface for developer tools; an in game level editor; asset and shader hot reloading/recompilation.
+			</p>
+			<p>
+				Although it is unlikely to ever be finished as a game, I had a lot of fun working on it, and the lessons I learned during my time with the project have been critical to my progression as a programmer.
+			</p>
+			<p>
+				The source code is available <a href="https://www.github.com/tomthornt0n/lucerna">here</a>.
+			</p>
 			<hr class="solid">
 		</div>
 
